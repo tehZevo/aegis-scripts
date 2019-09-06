@@ -14,8 +14,8 @@ import logging
 import gym
 import matplotlib
 
-from aegis.flask_controller import FlaskController
-from aegis.env_engine import EnvEngine
+from aegis_core.flask_controller import FlaskController
+from aegis_core.env_engine import EnvEngine
 
 log = logging.getLogger('werkzeug')
 log.setLevel(logging.ERROR)

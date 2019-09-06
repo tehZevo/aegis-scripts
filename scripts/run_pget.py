@@ -15,8 +15,8 @@ import logging
 import tensorflow as tf
 import matplotlib
 
-from aegis.flask_controller import FlaskController
-from aegis.pget_engine import PGETEngine
+from aegis_core.flask_controller import FlaskController
+from aegis_core.pget_engine import PGETEngine
 
 log = logging.getLogger('werkzeug')
 log.setLevel(logging.ERROR)
