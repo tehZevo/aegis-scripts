@@ -5,8 +5,8 @@ parser.add_argument("-u", "--url", required=True)
 parser.add_argument('-p','--port', required=True)
 parser.add_argument('-n','--name', required=False)
 parser.add_argument('-s','--niceness', required=False, default=1)
-#TODO: arg for end_reward (-r)
-#TODO: env (-e)
+parser.add_argument('-e','--environment', required=False, default="CartPole-v0")
+parser.add_argument('-r','--end-reward', required=False, type=float, default=0)
 
 args = parser.parse_args()
 
@@ -24,8 +24,8 @@ matplotlib.use("Agg") #threading issue
 
 #TODO: define env and end of episode reward
 
-env = gym.make("CartPole-v0")
-end_reward = -1
+env = gym.make(args.environment)
+end_reward = args.end_reward
 
 engine = EnvEngine(env, end_reward, action_url=args.url, run_name=args.name)
 controller = FlaskController(engine, port=args.port, niceness=args.niceness)

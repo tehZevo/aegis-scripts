@@ -8,7 +8,7 @@ python scripts/builder.py -i 4 -o 2 -s 32 32 -A softmax -f models/cartpole_singl
 ```
 Then, launch the environment
 ```
-python scripts/run_env.py -u http://localhost:8001 -p 8000
+python scripts/run_env.py -u http://localhost:8001 -p 8000 -r -1
 ```
 Finally, in a separate shell, run a PGET agent with the network we created earlier
 ```
