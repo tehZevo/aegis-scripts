@@ -1,5 +1,11 @@
 # Aegis Scripts
-Scripts for actually running nodes in [Aegis Core](https://github.com/tehZevo/aegis-core).
+Scripts for *actually* running [Aegis](https://github.com/tehZevo/aegis-core) nodes.
+
+|Script|Description|
+|---|---|
+|`builder.py`| Allows for quick command-line creation of models compatible with `run_pget.py`|
+|`run_env.py`| Starts an OpenAI Gym environment node|
+|`run_pget.py`| Starts a [PGET](https://github.com/tehZevo/pget) RL agent node|
 
 ## Single-network CartPole example
 First, create a suitable network
