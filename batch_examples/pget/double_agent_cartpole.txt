@@ -1,0 +1,7 @@
+#cant get to work :(
+python scripts/builder.py -i 4 -o 32 -s 32 32 -a tanh -A tanh -f models/cartpole_double/1.h5
+python scripts/builder.py -i 32 -o 2 -s 32 32 -a tanh -A softmax -f models/cartpole_double/2.h5
+
+python scripts/run_env.py -u http://localhost:8002 -p 8000 -r -1 -s -0.1
+python scripts/run_pget.py -u http://localhost:8000 -p 8001 -m models/cartpole_double/1.h5 -s -0.1 -n 0.1
+python scripts/run_pget.py -u http://localhost:8001 -p 8002 -m models/cartpole_double/2.h5 -d True -s -0.1 -n 0.01

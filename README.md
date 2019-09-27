@@ -7,6 +7,8 @@ Scripts for *actually* running [Aegis](https://github.com/tehZevo/aegis-core) no
 |`builder.py`| Allows for quick command-line creation of models compatible with `run_pget.py`|
 |`run_env.py`| Starts an OpenAI Gym environment node|
 |`run_pget.py`| Starts a [PGET](https://github.com/tehZevo/pget) RL agent node|
+|`run_sb_dqn.py`| Starts a [stable-baselines](https://github.com/hill-a/stable-baselines) DQN agent node (WIP)|
+|`run_sb_ppo2.py`| Starts a [stable-baselines](https://github.com/hill-a/stable-baselines) PPO2 agent node (WIP)|
 
 ## Single-network CartPole example
 First, create a suitable network

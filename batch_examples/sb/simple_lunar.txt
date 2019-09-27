@@ -1,0 +1,4 @@
+#run environment
+python scripts/run_env.py -u http://localhost:8001 -p 8000 -e LunarLander-v2 -s -0.1
+#run simple baselines
+python scripts/run_sb_ppo2.py -u http://localhost:8000 -p 8001 -i 8 -o 4 -d True -s 0.1

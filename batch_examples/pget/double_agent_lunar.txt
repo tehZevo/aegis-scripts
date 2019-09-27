@@ -1,0 +1,7 @@
+#got it to work, needed lower noise on the continuous outputs
+python scripts/builder.py -i 8 -o 32 -s 32 32 -a tanh -A tanh -f models/dal/1.h5
+python scripts/builder.py -i 32 -o 4 -s 32 32 -a tanh -A softmax -f models/dal/2.h5
+
+python scripts/run_env.py -u http://localhost:8002 -p 8000 -r -1 -s -0.1 -n dal -e "LunarLander-v2"
+python scripts/run_pget.py -u http://localhost:8000 -p 8001 -m models/dal/1.h5 -s -0.1 -n 0.001
+python scripts/run_pget.py -u http://localhost:8001 -p 8002 -m models/dal/2.h5 -d True -s -0.1 -n 0.01

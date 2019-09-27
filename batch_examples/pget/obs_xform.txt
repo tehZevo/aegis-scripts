@@ -1,0 +1,7 @@
+#cant get anything like this to work
+python scripts/builder.py -i 4 -o 10 -A tanh -f models/obs_xform/1.h5
+python scripts/builder.py -i 10 -o 2 -s 32 32 -a relu -A softmax -f models/obs_xform/2.h5
+
+python scripts/run_env.py -u http://localhost:8002 -p 8000 -r -1
+python scripts/run_pget.py -u http://localhost:8000 -p 8001 -m models/obs_xform/1.h5 --no-train
+python scripts/run_pget.py -u http://localhost:8001 -p 8002 -m models/obs_xform/2.h5 -d True

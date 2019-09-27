@@ -1,0 +1,13 @@
+python scripts/builder.py -i 4 -o 32 -s 32 32 -A tanh -f models/dcwl/1.h5
+python scripts/builder.py -i 4 -o 32 -s 32 32 -A tanh -f models/dcwl/2.h5
+python scripts/builder.py -i 32 -o 32 -s 32 32 -A tanh -f models/dcwl/3.h5
+python scripts/builder.py -i 32 -o 2 -s 32 32 -A softmax -f models/dcwl/4.h5
+python scripts/builder.py -i 32 -o 2 -s 32 32 -A softmax -f models/dcwl/5.h5
+
+python scripts/run_env.py -u http://localhost:8005 -p 8000 -r -1 -n "dcwl 1"
+python scripts/run_env.py -u http://localhost:8006 -p 8001 -r -1 -n "dcwl 2"
+python scripts/run_pget.py -u http://localhost:8000 -p 8002 -m models/dcwl/1.h5
+python scripts/run_pget.py -u http://localhost:8001 -p 8003 -m models/dcwl/2.h5
+python scripts/run_pget.py -u http://localhost:8002 http://localhost:8003 http://localhost:8004 -p 8004 -m models/dcwl/3.h5
+python scripts/run_pget.py -u http://localhost:8004 -p 8005 -m models/dcwl/4.h5 -d True
+python scripts/run_pget.py -u http://localhost:8004 -p 8006 -m models/dcwl/5.h5 -d True

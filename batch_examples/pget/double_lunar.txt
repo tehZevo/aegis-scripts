@@ -1,0 +1,13 @@
+python scripts/builder.py -i 8 -o 32 -s 32 -A tanh -f models/dl/1.h5
+python scripts/builder.py -i 8 -o 32 -s 32 -A tanh -f models/dl/2.h5
+python scripts/builder.py -i 32 -o 32 -A tanh -f models/dl/3.h5
+python scripts/builder.py -i 32 -o 4 -s 32 -A softmax -f models/dl/4.h5
+python scripts/builder.py -i 32 -o 4 -s 32 -A softmax -f models/dl/5.h5
+
+python scripts/run_env.py -u http://localhost:8005 -p 8000 -r -1 -n "dl 1" -e "LunarLander-v2" -s -0.1
+python scripts/run_env.py -u http://localhost:8006 -p 8001 -r -1 -n "dl 2" -e "LunarLander-v2" -s -0.1
+python scripts/run_pget.py -u http://localhost:8000 -p 8002 -m models/dl/1.h5 -s -0.1 -n 0.001
+python scripts/run_pget.py -u http://localhost:8001 -p 8003 -m models/dl/2.h5 -s -0.1 -n 0.001
+python scripts/run_pget.py -u http://localhost:8002 http://localhost:8003 -p 8004 -m models/dl/3.h5 -s -0.1 -n 0.001
+python scripts/run_pget.py -u http://localhost:8004 -p 8005 -m models/dl/4.h5 -d True -s -0.1 -n 0.01
+python scripts/run_pget.py -u http://localhost:8004 -p 8006 -m models/dl/5.h5 -d True -s -0.1 -n 0.01

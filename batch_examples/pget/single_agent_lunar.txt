@@ -1,0 +1,6 @@
+# Create model
+python scripts/builder.py -i 8 -o 4 -s 64 64 -A softmax -f models/cartpole_single.h5
+
+# Run environment and agent
+python scripts/run_env.py -u http://localhost:8001 -p 8000 -e LunarLander-v2
+python scripts/run_pget.py -u http://localhost:8000 -p 8001 -m models/cartpole_single.h5 -d True
