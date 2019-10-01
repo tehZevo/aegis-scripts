@@ -1,5 +1,6 @@
 git+https://github.com/tehzevo/aegis-core@master#egg=aegis_core
 git+https://github.com/tehzevo/ml-utils@master#egg=ml_utils
-tensorflow
+git+https://github.com/tehzevo/zbatcher@master#egg=zbatcher
+tensorflow>=1.14.0,<2.0.0
 matplotlib
 gym

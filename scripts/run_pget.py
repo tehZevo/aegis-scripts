@@ -5,6 +5,7 @@ parser.add_argument("-u", "--urls", nargs="+", required=True)
 parser.add_argument("-m", "--model", type=str, required=True)
 parser.add_argument('-p','--port', required=True)
 parser.add_argument("-d", "--discrete", type=bool, default=False)
+parser.add_argument("-r", "--reward-propagation", type=float, default=0)
 parser.add_argument("-s", "--niceness", type=float, default=1)
 parser.add_argument("-n", "--noise", type=float, default=0.1)
 parser.add_argument("-a", "--alpha", type=float, default=1e-4)
@@ -33,10 +34,10 @@ args = parser.parse_args()
 
 opt = None if args.optimizer == "none" else args.optimizer
 
-#TODO: successes in double/triple agent and double cartpole had 0 regularization, set back to 0 if issues arise
+#TODO: successes in double/triple agent and double lunar had 0 regularization, set back to 0 if issues arise
 engine = PGETEngine(args.model, is_discrete=args.discrete, input_urls=args.urls,
-  regularization_scale=0, lr=args.alpha, train=args.train, alt_trace_method=False,
-  advantage_clip=1, lambda_=0.9, noise=args.noise, optimizer=opt)#, gamma=0.99)
+  regularization_scale=1e-9, lr=args.alpha, train=args.train, alt_trace_method=False,
+  advantage_clip=1, lambda_=0.9, noise=args.noise, optimizer=opt, reward_propagation=args.reward_propagation)#, gamma=0.99)
 #engine.optimizer = None #TODO: remove
 
 controller = FlaskController(engine, port=args.port, niceness=args.niceness)

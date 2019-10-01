@@ -3,10 +3,11 @@ import argparse
 parser = argparse.ArgumentParser()
 parser.add_argument("-u", "--url", required=True)
 parser.add_argument('-p','--port', required=True)
-parser.add_argument('-n','--name', required=False, default="")
-parser.add_argument('-s','--niceness', required=False, default=1)
-parser.add_argument('-e','--environment', required=False, default="CartPole-v0")
-parser.add_argument('-r','--end-reward', required=False, type=float, default=0)
+parser.add_argument('-x','--proxy')
+parser.add_argument('-n','--name', default="")
+parser.add_argument('-s','--niceness', default=1)
+parser.add_argument('-e','--environment', default="CartPole-v0")
+parser.add_argument('-r','--end-reward', type=float, default=0)
 
 args = parser.parse_args()
 
@@ -28,5 +29,5 @@ env = gym.make(args.environment)
 end_reward = args.end_reward
 
 engine = EnvEngine(env, end_reward, action_url=args.url, run_name=args.name,
-  viz_smoothing=0.01, viz_interval=25)
+  viz_smoothing=0.01, viz_interval=25, reward_proxy=args.proxy)
 controller = FlaskController(engine, port=args.port, niceness=args.niceness)

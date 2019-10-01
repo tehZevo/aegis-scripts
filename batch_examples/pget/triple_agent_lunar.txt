@@ -1,9 +1,0 @@
-#seems to work with 1x32 hidden in input/output but 0x hidden in center
-python scripts/builder.py -i 8 -o 32 -a tanh -A tanh -f models/tal/1.h5
-python scripts/builder.py -i 32 -o 32 -a tanh -A tanh -f models/tal/2.h5
-python scripts/builder.py -i 32 -o 4 -a tanh -A softmax -f models/tal/3.h5
-
-python scripts/run_env.py -u http://localhost:8103 -p 8100 -r -1 -s -0.1 -n tal -e "LunarLander-v2"
-python scripts/run_pget.py -u http://localhost:8100 -p 8101 -m models/tal/1.h5 -s -0.1 -n 0.001 -a 1e-4
-python scripts/run_pget.py -u http://localhost:8101 -p 8102 -m models/tal/2.h5 -s -0.1 -n 0.001 -a 1e-4
-python scripts/run_pget.py -u http://localhost:8102 -p 8103 -m models/tal/3.h5 -d True -s -0.1 -n 0.01 -a 1e-4
