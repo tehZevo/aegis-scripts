@@ -2,8 +2,8 @@ import argparse
 
 parser = argparse.ArgumentParser()
 parser.add_argument("-u", "--urls", nargs="+", required=True)
-parser.add_argument("-i", "--input-size", type=int, required=True)
-parser.add_argument("-o", "--output-size", type=int, required=True)
+parser.add_argument("-i", "--input-shape", type=int, nargs="+", required=True)
+parser.add_argument("-o", "--output-shape", type=int, nargs="+", required=True)
 parser.add_argument('-p','--port', required=True)
 parser.add_argument("-d", "--discrete", type=bool, default=False)
 parser.add_argument("-s", "--sleep", type=float, default=0.1)
@@ -23,7 +23,7 @@ log.setLevel(logging.ERROR)
 timesteps=1e10 #TODO: hardcoded timesteps.. should be infinity
 
 # Create environment
-env = AegisEnv(args.input_size, args.output_size, args.urls, port=args.port,
+env = AegisEnv(args.input_shape, args.output_shape, args.urls, port=args.port,
   discrete=args.discrete, sleep=args.sleep)
 
 #from stable_baselines.common.policies import MlpPolicy

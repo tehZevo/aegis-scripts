@@ -1,6 +1,10 @@
 from zbatcher import Batcher
 #seems to work with 1x32 hidden in input/output but 0x hidden in center
 
+#niceness = -0.1
+niceness = 1
+lr = 1e-4
+
 Batcher([
   [
     #create models
@@ -10,10 +14,10 @@ Batcher([
   ],
   [
     #start proxy
-    'python scripts/run_reward_proxy.py -u 8001 8002 8003 -p 7999 -s -0.1',
-    'python scripts/run_env.py -u 8003 -p 8000 -r -1 -s -0.1 -n tal -e "LunarLander-v2"',
-    'python scripts/run_pget.py -u 8000 -p 8001 -m models/tal/1.h5 -s -0.1 -n 0.001 -a 1e-4',
-    'python scripts/run_pget.py -u 8001 -p 8002 -m models/tal/2.h5 -s -0.1 -n 0.001 -a 1e-4',
-    'python scripts/run_pget.py -u 8002 -p 8003 -m models/tal/3.h5 -d True -s -0.1 -n 0.01 -a 1e-4'
+    'python scripts/run_reward_proxy.py -u 8001 8002 8003 -p 7999 -s {}'.format(niceness),
+    'python scripts/run_env.py -u 8003 -p 8000 -r -1 -s {} -n tal -e "LunarLander-v2"'.format(niceness),
+    'python scripts/run_pget.py -u 8000 -p 8001 -m models/tal/1.h5 -s {} -n 0.001 -a {}'.format(niceness, lr),
+    'python scripts/run_pget.py -u 8001 -p 8002 -m models/tal/2.h5 -s {} -n 0.001 -a {}'.format(niceness, lr),
+    'python scripts/run_pget.py -u 8002 -p 8003 -m models/tal/3.h5 -e discrete -s {} -n 0.01 -a {}'.format(niceness, lr)
   ]
 ]).run()
