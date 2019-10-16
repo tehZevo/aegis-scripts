@@ -31,7 +31,6 @@ import matplotlib
 
 from aegis_core.flask_controller import FlaskController
 from aegis_core.rl_engine import RLEngine
-from aegis_core.callbacks import TensorboardPGETWeights, TensorboardPGETTraces
 
 from pget import Agent
 
@@ -46,19 +45,14 @@ args = parser.parse_args()
 #tensorboard logging stuff
 from datetime import datetime
 
-#TODO: specify name instead of using port
+from utils import pget_callbacks
+
 name = args.name if args.name is not None else args.port
 logdir = "./logs/pget/{}-".format(name) + datetime.now().strftime("%Y%m%d-%H%M%S")
-
 summary_writer = tf.contrib.summary.create_file_writer(
   logdir, flush_millis=10000)
 
-cbs = [
-  TensorboardPGETWeights(summary_writer, name, interval=100, #TODO: make 1000
-    combine=False, step_for_step=True),
-  TensorboardPGETTraces(summary_writer, name, interval=100, #TODO: make 1000
-    combine=False, step_for_step=True),
-]
+cbs = pget_callbacks(summary_writer, name, interval=100) #TODO: make 1000
 #end logging stuff
 
 opt = None if args.optimizer == "none" else args.optimizer

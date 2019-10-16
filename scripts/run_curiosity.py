@@ -18,7 +18,6 @@ import matplotlib
 
 from aegis_core.flask_controller import FlaskController
 from aegis_core.curiosity import LocalCuriosityEngine
-from aegis_core.callbacks import TensorboardCallback
 
 from pget import Agent
 
@@ -32,6 +31,7 @@ args = parser.parse_args()
 
 #tensorboard logging stuff
 from datetime import datetime
+from utils import curiosity_callbacks
 
 name = args.name if args.name is not None else args.port
 logdir = "./logs/curiosity/{}-".format(name) + datetime.now().strftime("%Y%m%d-%H%M%S")
@@ -39,12 +39,7 @@ logdir = "./logs/curiosity/{}-".format(name) + datetime.now().strftime("%Y%m%d-%
 summary_writer = tf.contrib.summary.create_file_writer(
   logdir, flush_millis=10000)
 
-cbs = [
-  TensorboardCallback(summary_writer, "loss", suffix=args.name,
-    reduce="mean", interval=100, step_for_step=True),
-  TensorboardCallback(summary_writer, "surprise", suffix=args.name,
-    reduce="mean", interval=100, step_for_step=True),
-]
+cbs = curiosity_callbacks(summary_writer, args.name, interval=100)
 #end logging stuff
 
 model = tf.keras.models.load_model(args.model_path)

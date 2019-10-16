@@ -29,19 +29,14 @@ import matplotlib
 import tensorflow as tf
 from datetime import datetime
 
+from utils import env_callbacks
+
 tf.enable_eager_execution()
 logdir = "./logs/envs/{}".format(args.environment) + datetime.now().strftime("%Y%m%d-%H%M%S")
-
 summary_writer = tf.contrib.summary.create_file_writer(
   logdir, flush_millis=10000)
 
-from aegis_core.callbacks import TensorboardCallback, ValuePrinter, TensorboardActions
-cbs = [
-  TensorboardCallback(summary_writer, "reward", suffix=args.environment,
-    reduce="sum", interval="done", step_for_step=False),
-  TensorboardActions(summary_writer, env_name=args.environment, interval="done",
-    step_for_step=False),
-]
+cbs = env_callbacks(summary_writer, args.environment)
 #end logging stuff
 
 from aegis_core.flask_controller import FlaskController
