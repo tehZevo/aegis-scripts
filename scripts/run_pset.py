@@ -15,10 +15,8 @@ parser.add_argument("-c", "--advantage_clip", type=float, default=1.0) #TODO: al
 parser.add_argument("-g", "--gamma", type=float, default=(1-1e-5))
 parser.add_argument("-l", "--lambda", dest="lambda_", type=float, default=0.9)
 parser.add_argument("-o", "--optimizer", type=str, default="adam")
-parser.add_argument("-C", "--clip-norm", type=float, default=1.0)
 parser.add_argument("-d", "--initial-deviation", type=float, default=10)
 parser.add_argument("-k", "--weight-decay", type=float, default=1e-4)
-parser.add_argument("-q", "--late-squash", type=bool, default=False)
 parser.add_argument('--alt-trace', dest='alttrace', action='store_true')
 parser.add_argument('--no-alt-trace', dest='alttrace', action='store_false')
 parser.set_defaults(alttrace=False)
@@ -34,7 +32,7 @@ import matplotlib
 from aegis_core.flask_controller import FlaskController
 from aegis_core.rl_engine import RLEngine
 
-from pget import Agent
+from pset import Agent
 
 log = logging.getLogger('werkzeug')
 log.setLevel(logging.ERROR)
@@ -50,7 +48,7 @@ from datetime import datetime
 from utils import pget_callbacks
 
 name = args.name if args.name is not None else args.port
-logdir = "./logs/pget/{}-".format(name) + datetime.now().strftime("%Y%m%d-%H%M%S")
+logdir = "./logs/pset/{}-".format(name) + datetime.now().strftime("%Y%m%d-%H%M%S")
 summary_writer = tf.contrib.summary.create_file_writer(
   logdir, flush_millis=10000)
 
@@ -63,7 +61,7 @@ model = tf.keras.models.load_model(args.model_path)
 agent = Agent(model, action_type=args.action_type, regularization_scale=args.weight_decay,
   lr=args.alpha, alt_trace_method=args.alttrace, advantage_clip=args.advantage_clip,
   lambda_=args.lambda_, gamma=args.gamma, noise=args.noise, optimizer=opt,
-  initial_deviation=args.initial_deviation, late_squash=args.late_squash)
+  initial_deviation=args.initial_deviation)
 
 #TODO: successes in double/triple agent and double lunar had 0 regularization, set back to 0 if issues arise
 engine = RLEngine(agent, args.model_path, input_urls=args.urls, train=args.train,

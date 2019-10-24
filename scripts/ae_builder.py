@@ -8,7 +8,7 @@ parser.add_argument("-i", "--input-shape", nargs="+", type=int, required=True)
 parser.add_argument("-l", "--latent-size", type=int, required=True)
 parser.add_argument("-s", "--hidden-sizes", nargs="+", type=int, default=[])
 parser.add_argument("-a", "--activation", type=str, default="tanh")
-parser.add_argument("-r", "--learning-rate", type=float, default=1e-3)
+parser.add_argument("-r", "--learning-rate", type=float, default=1e-4)
 parser.add_argument("-o", "--optimizer", type=str, default="adam")
 parser.add_argument("-f", "--filepath", type=str, required="true")
 #TODO: loss arg

@@ -7,6 +7,7 @@ parser.add_argument('-x','--proxy')
 parser.add_argument('-n','--name', default="")
 parser.add_argument('-s','--niceness', type=float, default=1)
 parser.add_argument('-k','--action-repeat', type=int, default=1)
+parser.add_argument('-i','--interval', default="done")
 parser.add_argument('-e','--environment', default="CartPole-v0")
 #TODO: implement --no-reward (requires modifying env_engine)
 parser.add_argument('-r','--end-reward', type=float, default=0)
@@ -30,8 +31,8 @@ tf.enable_eager_execution()
 logdir = "./logs/envs/{}".format(args.environment) + datetime.now().strftime("%Y%m%d-%H%M%S")
 summary_writer = tf.contrib.summary.create_file_writer(
   logdir, flush_millis=10000)
-
-cbs = env_callbacks(summary_writer, args.environment)
+interval = int(args.interval) if args.interval.isdigit() else args.interval
+cbs = env_callbacks(summary_writer, args.environment, interval)
 #end logging stuff
 
 from aegis_core.flask_controller import FlaskController
