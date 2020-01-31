@@ -17,11 +17,7 @@ from stable_baselines.common.vec_env import DummyVecEnv
 from stable_baselines import PPO2
 import gym
 import numpy as np
-
-class DummyEnv(gym.Env):
-  def __init__(self, obs_space, action_space):
-    self.observation_space = obs_space
-    self.action_space = action_space
+from utils import DummyEnv
 
 #TODO: support more obs spaces
 obs_space = gym.spaces.Box(shape=args.input_shape, low=-np.Inf, high=np.Inf)

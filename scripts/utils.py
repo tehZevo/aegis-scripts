@@ -1,9 +1,15 @@
 from tensorflow.keras import optimizers as O
 import retro
+import gym
 
 from aegis_core.callbacks import TensorboardFieldCallback, TensorboardCallback
 from aegis_core.callbacks import TensorboardActions, TensorboardPGETReward
 from aegis_core.callbacks import TensorboardPGETWeights, TensorboardPGETTraces
+
+class DummyEnv(gym.Env):
+  def __init__(self, obs_space, action_space):
+    self.observation_space = obs_space
+    self.action_space = action_space
 
 def list_retro_games(filter=None):
   games = retro.data.list_games()
