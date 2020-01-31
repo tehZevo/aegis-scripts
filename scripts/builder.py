@@ -13,9 +13,9 @@ parser.add_argument("-A", "--output-activation", type=str, default="tanh")
 parser.add_argument("-r", "--rnn", type=str, default="")
 parser.add_argument("-f", "--filepath", type=str, required="true")
 
-parser.add_argument("--optimizer", type=str, default=None)
-parser.add_argument("--learning-rate", type=float, default=1e-4)
-parser.add_argument("--clipnorm", type=float, default=1.0)
+parser.add_argument("-p", "--optimizer", type=str, default=None)
+parser.add_argument("-l", "--learning-rate", type=float, default=1e-4)
+parser.add_argument("-c", "--clipnorm", type=float, default=1.0)
 
 parser.add_argument("--loss", type=str, default="mse")
 

@@ -40,12 +40,12 @@ def env_callbacks(summary_writer, env_name, interval="done"):
 
   return cbs
 
-def pget_callbacks(summary_writer, name, interval=100):
+def pget_callbacks(summary_writer, name, interval=100, outlier_z=2):
   cbs = [
     TensorboardPGETWeights(summary_writer, name, interval=interval,
       combine=False, step_for_step=True),
     TensorboardPGETTraces(summary_writer, name, interval=interval,
-      combine=False, step_for_step=True),
+      combine=False, step_for_step=True, outlier_z=outlier_z),
     TensorboardPGETReward(summary_writer, name, interval=interval,
       step_for_step=True),
   ]
