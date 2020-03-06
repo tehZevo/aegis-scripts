@@ -6,7 +6,8 @@ parser.add_argument("-o", "--output-shape", nargs="+", type=int, required=True)
 parser.add_argument("-f", "--path", type=str, required=True)
 #TODO: support other output types (needs AegisEnv modification)
 parser.add_argument("-d", "--discrete", type=bool, default=False)
-parser.add_argument("-l", "--policy", type=str, default="MlpPolicy")
+parser.add_argument("-l", "--learning-rate", type=float, default=0.00025) #copied from https://stable-baselines.readthedocs.io/en/master/modules/ppo2.html
+parser.add_argument("-p", "--policy", type=str, default="MlpPolicy")
 #TODO: more args
 args = parser.parse_args()
 
@@ -31,6 +32,5 @@ env = DummyEnv(obs_space, action_space)
 env = DummyVecEnv([lambda: env])
 
 #TODO: infer space types and shapes from saved agent?
-#TODO: hardcoded policy
-model = PPO2(args.policy, env, verbose=1, nminibatches=1)
+model = PPO2(args.policy, env, learning_rate=args.learning_rate, nminibatches=1)
 model.save(args.path)

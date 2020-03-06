@@ -8,11 +8,11 @@ parser.add_argument("-o", "--output-shape", type=int, required=True)
 parser.add_argument('-p','--port', required=True)
 #TODO: support other output types (needs AegisEnv modification)
 parser.add_argument("-d", "--discrete", type=bool, default=False)
-#TODO: make aegisenv support niceness sleep (fix negative)
-parser.add_argument("-s", "--sleep", type=float, default=0.1)
+parser.add_argument("-s", "--niceness", type=float, default=1)
 parser.add_argument("-e", "--steps", type=int, default=10000) #steps per episode
 
 parser.add_argument("-f", "--path", type=str, required=True)
+parser.add_argument("-r", "--reward-prop", type=float, default=0)
 #TODO: support more algos
 parser.add_argument("-a", "--algorithm", type=str, default="ppo2")
 parser.add_argument("-l", "--logdir", type=str, default=None)
@@ -33,7 +33,8 @@ log.setLevel(logging.ERROR)
 
 # Create environment
 env = AegisEnv(args.input_shape, args.output_shape, args.urls, port=args.port,
-  discrete=args.discrete, sleep=args.sleep, n_steps=args.steps)
+  discrete=args.discrete, niceness=args.niceness, n_steps=args.steps,
+  reward_propagation=args.reward_prop)
 env = DummyVecEnv([lambda: env])
 
 #load model

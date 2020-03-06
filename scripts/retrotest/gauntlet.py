@@ -1,32 +1,19 @@
-import retro
 from zbatcher import Batcher
-import random
 
-games = retro.data.list_games()
-games = filter(lambda x: "atari2600" in x.lower(), games)
-game = random.choice(games)
-
-#TODO:
-niceness = -0.001
+niceness = 1
 frameskip = 4
-#niceness = 1
-initial_d = 100
+step_limit = 10000
 
-start_port = 9300
-port =
-
-center_size = 64
-center_port =
-
-def add_pget()
-
-def add_game(game):
-  builder =
+name = "atari_gauntlet"
 
 Batcher([
-  ['python scripts/builder.py -i 128 -o 8 -s 64 64 -a relu -A sigmoid -f models/mspacman/1.h5'],
   [
-    'python scripts/run_retro.py -u 8101 -p 8100 -s {} -n mspacman -k 4 -e {} -o ram --render'.format(niceness, game),
-    'python scripts/run_pget.py -u 8100 -p 8101 -m models/mspacman/1.h5 -e multibinary -s {} -n 0.1 -a 1e-3'.format(niceness)
+    'python scripts/build_sb_ppo.py -i 128 -o 18 -d True -p MlpPolicy -f testagent'
+  ],
+  [
+    #'tensorboard --logdir logs',
+    #'python scripts/run_atari_gauntlet.py -u 8501 -p 8500 -s {} -n {} -g MsPacMan Pong MontezumaRevenge --render -k {} -l {} -o ram'.format(niceness, name, frameskip, step_limit),
+    'python scripts/run_atari_gauntlet.py -u 8501 -p 8500 -s {} -n {} --render -k {} -l {} -o ram'.format(niceness, name, frameskip, step_limit),
+    #'python scripts/run_sb.py -u 8500 -p 8501 -i 128 -o 18 -d True -f testagent -l logs/sb -s {} -n {}'.format(niceness, name)
   ]
 ]).run()
